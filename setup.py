@@ -6,11 +6,9 @@ setup(
     packages=['nothotdog'],
     include_package_data=True,
     install_requires=[
+        'boto3',
         'flask',
-        'jsonify',
-        'keras',
-        'numpy',
-        'scipy'
+        'jsonify'
     ],
     maintainer='Ryan Lanese'
 )

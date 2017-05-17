@@ -3,6 +3,7 @@ import random
 from flask import Flask
 from flask import jsonify
 from flask import request, render_template
+from rekognition import Rekognition 
 
 tmp_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmp_dir)
