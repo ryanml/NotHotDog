@@ -9,7 +9,8 @@ setup(
         'flask',
         'jsonify',
         'keras',
-        'numpy'
+        'numpy',
+        'scipy'
     ],
     maintainer='Ryan Lanese'
 )
