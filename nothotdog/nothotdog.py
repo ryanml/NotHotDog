@@ -2,11 +2,15 @@ import os
 import random
 from flask import Flask
 from flask import jsonify
-from flask import request, render_template
+from flask import request, url_for, render_template
 from rekognition import Rekognition 
 
+rekognizer = Rekognition()
+
 tmp_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
+
 app = Flask(__name__, template_folder=tmp_dir)
+app.config['UPLOAD_FOLDER'] = 'static/img'
 
 """
 Index view
@@ -21,20 +25,15 @@ Endpoint for hot dog checking
 @app.route('/is-hot-dog', methods=['POST'])
 def is_hot_dog():
     if request.method == 'POST':
-        # Return 400 if no file in request
         if not 'file' in request.files:
             return jsonify({'error': 'no file'}), 400
-        # Prepare file
-        img_file = request.files['file']
-        file_name = img_file.filename
-        # Using arbitrary similarity and classification for now
-        similarity = round(
-            random.uniform(0.0, 1.0), 1
-        )
-        is_hot_dog = random.randint(0, 1)
+        img_file = request.files.get('file')
+        img_name = img_file.filename
+        img_file.save(os.path.join(app.config['UPLOAD_FOLDER'], img_name))
+        hot_dog_conf = rekognizer.get_confidence(img_name)
+        is_hot_dog = 'false' if hot_dog_conf == 0 else 'true'
         return_packet = {
-            'file_name': file_name,
-            'similiarty': similarity,
-            'is_hot_dog': is_hot_dog
+            'is_hot_dog': is_hot_dog,
+            'confidence': hot_dog_conf
         }
         return jsonify(return_packet)

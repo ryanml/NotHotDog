@@ -12,9 +12,13 @@
         <script type="text/javascript" src="static/js/nothotdog.js"></script>
     </head>
     <body>
-        <form id="img-form" method="post" enctype="multipart/form-data" action="upload">
-            <input id="img-upload" name="file" type="file"/>
-            <input id="img-submit" type="submit" value="Check Hot Dog"/>
+        <form method="post" enctype="multipart/form-data" action="upload">
+            <input id="img" name="file" type="file"/>
+            <input type="submit" value="Check Hot Dog"/>
         </form>
+        <div class="status-area">
+            <span class="status"></span>
+            <div class="img-area"></div>
+        </div>
     </body>
 </html>

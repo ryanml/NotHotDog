@@ -1,35 +1,33 @@
 # Communicates with AWS Rekognition for image label detection
 # Author: Ryan Lanese
 
-import io
 import boto3
 
 class Rekognition(object):
 
     def __init__(self):
-        self.min_conf = 90
+        self.min_conf = 85
         self.max_labels = 5
         self.hd_label = 'Hot Dog'
+        self.uploads_dir = 'static/img/'
         self.client = boto3.client('rekognition')
 
     def get_bytes(self, file):
         image = open(file, mode='rb')
         return image.read()
 
-    def is_hot_dog(self, file):
-        is_hot_dog = False
+    def get_confidence(self, file):
+        confidence = 0.0
         response = self.client.detect_labels(
             Image={
-                'Bytes': self.get_bytes(file)
+                'Bytes': self.get_bytes(self.uploads_dir + file)
             },
-            MaxLabels=5,
+            MaxLabels=self.max_labels,
             MinConfidence=self.min_conf
         )
         labels = response['Labels']
         for label in labels:
             if label['Name'] == self.hd_label:
-                is_hot_dog = True
+                confidence = label['Confidence']
                 break
-        return is_hot_dog 
-
-
+        return confidence
