@@ -1,20 +1,26 @@
 $(document).ready(function() {
 
-    $('form').submit(function(event) {
-        event.preventDefault();
+    $('#img').change(function(event) {
+        var obj = $(this)[0];
 
-        var img = document.getElementById('img');
-
-        if (img.files && img.files[0]) {
+        if (obj.files && obj.files[0]) {
             var fileReader = new FileReader();
             fileReader.onload = function(event) {
                 $('.img-area').html(
-                    `<img src='${event.target.result}'/>`
+                    `<img class='loaded-img' src='${event.target.result}'/>`
                 );
             }
-            fileReader.readAsDataURL(img.files[0]);
+            fileReader.readAsDataURL(obj.files[0]);           
         }
+    });
 
+    $('form').submit(function(event) {
+        event.preventDefault();
+
+        var $status = $('.status');
+        $status.html(
+            `<span class='eval'>Evaluating...</span>`
+        );
 
         $.ajax({
             url: '/is-hot-dog',
@@ -26,9 +32,14 @@ $(document).ready(function() {
 
             success: function(responseData) {
                 if (responseData.is_hot_dog === 'true') {
-                    $('.status').text('HOT DOG');
+                    $status.html(
+                        `<span class='result success'>Hot Dog</span>
+                         <span class='confidence'>${responseData.confidence}% confident</span>`
+                    );
                 } else {
-                    $('.status').text('NOT HOT DOG');
+                    $status.html(
+                        `<span class='result failure'>Not Hot Dog</span>`
+                    );
                 }
             },
             error: function() {

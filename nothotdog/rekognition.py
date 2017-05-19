@@ -29,5 +29,7 @@ class Rekognition(object):
         for label in labels:
             if label['Name'] == self.hd_label:
                 confidence = label['Confidence']
+                confidence = "%.1f" % float(confidence)
                 break
         return confidence
+

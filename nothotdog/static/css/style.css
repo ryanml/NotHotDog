@@ -1,0 +1,68 @@
+.head-wrap {
+    text-align:center;
+}
+
+form {
+    padding:20px 0px;
+    text-align:center;
+}
+
+#img {
+    display:inline-block;
+}
+
+input[type="submit"] {
+    border-radius:5px;
+    border:1px solid #eea236;
+}
+
+.info-area {
+    text-align:center;
+}
+
+.loaded-img {
+    padding:10px;
+    max-width:400px;
+    max-height:400px;
+    border-radius:5px;
+    border:2px solid #d3d3d3;
+}
+
+.status-area {
+    margin:20px 0px;
+}
+
+.result {
+    display:block;
+    font-size:30px;
+    font-weight:700;   
+}
+
+.eval {
+    font-size:15px;
+}
+
+.success {
+    color:#00b33c;
+}
+
+.failure {
+    color:#ff0000;
+}
+
+.confidence {
+    display:block;
+    font-style:italic;
+}
+
+@media (max-width:447px) {
+    form input {
+        width:100%;
+    }
+    input:first-child {
+        margin:10px 0px 5px 0px;
+    }
+    input:last-child {
+        margin:5px 0px 10px 0px;
+    }
+}
