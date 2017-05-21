@@ -55,6 +55,25 @@ input[type="submit"] {
     font-style:italic;
 }
 
+footer {
+    bottom:0;
+    width:100%;
+    position:fixed;
+}
+
+.references.container {
+    padding:20px 0px;
+    text-align:center;
+}
+
+.view-container {
+    display:block;
+}
+
+.view-container a {
+    text-decoration:none;
+}
+
 @media (max-width:447px) {
     form input {
         width:100%;

@@ -1,7 +1,10 @@
 $(document).ready(function() {
+    var $status = $('.status');
 
     $('#img').change(function(event) {
         var obj = $(this)[0];
+
+        $status.html('');
 
         if (obj.files && obj.files[0]) {
             var fileReader = new FileReader();
@@ -17,7 +20,12 @@ $(document).ready(function() {
     $('form').submit(function(event) {
         event.preventDefault();
 
-        var $status = $('.status');
+        var imageData = new FormData($(this)[0]);
+
+        if (imageData.keys.length === 0) {
+            return false;
+        }
+
         $status.html(
             `<span class='eval'>Evaluating...</span>`
         );
@@ -28,7 +36,7 @@ $(document).ready(function() {
             processData: false,
             contentType: false,
             dataType: 'json',
-            data: new FormData($(this)[0]),
+            data: imageData,
 
             success: function(responseData) {
                 if (responseData.is_hot_dog === 'true') {
