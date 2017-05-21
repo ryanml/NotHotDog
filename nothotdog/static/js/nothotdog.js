@@ -20,11 +20,11 @@ $(document).ready(function() {
     $('form').submit(function(event) {
         event.preventDefault();
 
-        var imageData = new FormData($(this)[0]);
-
-        if (imageData.keys.length === 0) {
+        if ($('#img')[0].files.length === 0) {
             return false;
         }
+
+        var imageData = new FormData($(this)[0]);
 
         $status.html(
             `<span class='eval'>Evaluating...</span>`
