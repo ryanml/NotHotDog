@@ -26,7 +26,6 @@ class Rekognition(object):
             MinConfidence=self.min_conf
         )
         labels = response['Labels']
-        print labels
         for label in labels:
             if label['Name'] == self.hd_label:
                 confidence = label['Confidence']
