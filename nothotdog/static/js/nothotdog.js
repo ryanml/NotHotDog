@@ -45,13 +45,21 @@ $(document).ready(function() {
                          <span class='confidence'>${responseData.confidence}% confident</span>`
                     );
                 } else {
-                    $status.html(
-                        `<span class='result failure'>Not Hot Dog</span>`
-                    );
+                    if (responseData.error === 'bad-type') {
+                        $status.html(
+                            `<span class='eval'>Valid file types are .jpg and .png</span>`
+                        );
+                    } else {
+                        $status.html(
+                            `<span class='result failure'>Not Hot Dog</span>`
+                        );
+                    }
                 }
             },
             error: function() {
-                console.log('Something went wrong.');
+                $status.html(
+                    `<span class='eval'>Something went wrong, try again later.</span>`
+                );
             }
         });
     });
