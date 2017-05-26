@@ -29,6 +29,16 @@
                     <span class="status"></span>
                 </div>  
             </div>
+            {% if recents|length > 0 %}
+                <div class="recent-uploads">
+                    <h3>Recent Uploads</h3>
+                    {% for src in recents %}
+                        <a href='{{src}}' target='_blank'>
+                            <img class='recent loaded-img' src='{{src}}'/>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
         <footer>
             <div class="references container">

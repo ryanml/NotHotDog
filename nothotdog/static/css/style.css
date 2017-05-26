@@ -17,6 +17,7 @@ input[type="submit"] {
 }
 
 .info-area {
+    height:410px;
     text-align:center;
 }
 
@@ -55,10 +56,19 @@ input[type="submit"] {
     font-style:italic;
 }
 
+.recent-uploads {
+    text-align:center;
+}
+
+.recent {
+    width:200px;
+    height:200px;
+    margin:0px 5px;
+}
+
 footer {
     bottom:0;
     width:100%;
-    position:fixed;
 }
 
 .references.container {
@@ -87,5 +97,8 @@ footer {
     .loaded-img {
         max-width:300px;
         max-height:300px;
+    }
+    .recent {
+        margin:5px 5px;
     }
 }
