@@ -1,5 +1,6 @@
 import os
 import glob
+import imghdr
 import random
 from flask import Flask
 from flask import jsonify
@@ -13,7 +14,7 @@ tmp_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmp_dir)
 app.config['UPLOAD_FOLDER'] = 'static/img'
 
-valid_extensions = ['jpeg', 'jpg', 'png']
+valid_mimetypes = ['image/jpeg', 'image/png']
 
 """
 Index view
@@ -29,6 +30,7 @@ def index():
     slice_index = 2 if len(recent_files) > 1 else len(recent_files)
     recents = recent_files[:slice_index]
     return render_template('index.html', recents=recents)
+    
 """
 Endpoint for hot dog checking
 """
@@ -40,10 +42,9 @@ def is_hot_dog():
         # Image info
         img_file = request.files.get('file')
         img_name = img_file.filename
-        img_split = img_name.split('.')
-        img_extension = img_split[len(img_split) - 1]
-        # Return an error if not a valid file
-        if not img_extension in valid_extensions:
+        mimetype = img_file.content_type
+        # Return an error if not a valid mimetype
+        if not mimetype in valid_mimetypes:
             return jsonify({'error': 'bad-type'})
         # Write image to static directory and do the hot dog check
         img_file.save(os.path.join(app.config['UPLOAD_FOLDER'], img_name))
