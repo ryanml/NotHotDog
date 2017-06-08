@@ -49,6 +49,8 @@ def is_hot_dog():
         # Write image to static directory and do the hot dog check
         img_file.save(os.path.join(app.config['UPLOAD_FOLDER'], img_name))
         hot_dog_conf = rekognizer.get_confidence(img_name)
+        # Delete image when done with analysis
+        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], img_name))
         is_hot_dog = 'false' if hot_dog_conf == 0 else 'true'
         return_packet = {
             'is_hot_dog': is_hot_dog,
